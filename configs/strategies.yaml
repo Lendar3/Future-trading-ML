@@ -1,0 +1,12 @@
+mean_reversion:
+  windows: [20, 40, 80]
+  zscore_thresholds: [1.8, 2.2, 2.6]
+  atr_stop: [1.2, 1.6, 2.0]
+  atr_take: [0.8, 1.2, 1.6]
+funding_arbitrage:
+  max_expected_funding_cost_bp: 5
+orderbook_imbalance:
+  max_spread_bp: 8
+cross_market_momentum:
+  shock_threshold_bp: 50
+

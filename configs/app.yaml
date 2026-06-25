@@ -1,0 +1,4 @@
+app_name: Bybit Futures Edge Lab
+timezone: UTC
+log_level: INFO
+database_url: postgresql+psycopg://bybit:change_me@localhost:5432/bybit_edge

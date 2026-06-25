@@ -1,0 +1,14 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "symbol": "BTCUSDT",
+    "category": "linear",
+    "list": [
+      {"openInterest": "12345.5", "timestamp": "1778264400000"}
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1778264662239
+}

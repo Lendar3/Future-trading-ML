@@ -1,0 +1,10 @@
+execution:
+  mode: next_bar
+  taker_only_pessimistic: true
+costs:
+  maker_fee_bp: 2.0
+  taker_fee_bp: 5.5
+  spread_bp: 1.0
+  slippage_bp: 2.0
+  safety_margin_bp: 2.0
+

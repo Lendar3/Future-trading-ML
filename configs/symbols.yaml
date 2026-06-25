@@ -1,0 +1,8 @@
+supported_symbols:
+  - BTCUSDT
+  - ETHUSDT
+  - SOLUSDT
+external_markets:
+  - ES
+  - NQ
+
