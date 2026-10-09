@@ -1,6 +1,9 @@
 
-## Bybit Futures Edge Lab 
-is a Python project for researching and validating futures-trading hypotheses. It is **not** a production live-trading bot and does not place real orders.
+# Bybit Futures Edge Lab
+
+[![CI](https://github.com/Lendar3/Future-trading-ML/actions/workflows/ci.yml/badge.svg)](https://github.com/Lendar3/Future-trading-ML/actions/workflows/ci.yml)
+
+A Python project for researching and validating futures-trading hypotheses. It is **not** a production live-trading bot and does not place real orders.
 
 The project supports an end-to-end research workflow:
 
@@ -50,14 +53,14 @@ Live trading is deliberately blocked in v1:
 ## Quick Start
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
-cd BybitFuturesEdgeClean
+git clone https://github.com/Lendar3/Future-trading-ML.git
+cd Future-trading-ML
 
 python3.12 -m venv .venv
 source .venv/bin/activate
 
-pip install --upgrade pip
-pip install -e ".[dev]"
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 
 cp .env.example .env
 docker compose up -d postgres redis
@@ -72,44 +75,57 @@ Once the API is running:
 
 ## Seed Demo Data
 
-Populate the local environment with demo market data:
+Populate the local database with deterministic demo market data:
+
+```bash
+make seed-demo
+```
+
+The equivalent API request is:
 
 ```bash
 curl -X POST "http://localhost:8000/demo/seed?symbols=BTCUSDT,ETHUSDT,SOLUSDT&timeframe=1m&rows=160"
 ```
 
+## Public Data Backfill
+
+With PostgreSQL running, fetch the latest 24 hours of public Bybit data:
+
+```bash
+make backfill-public
+```
+
+Override the defaults when needed:
+
+```bash
+make backfill-public SYMBOL=ETHUSDT TIMEFRAME=5m HOURS=48
+```
+
 ## Run the Dashboard
 
 ```bash
-streamlit run app/dashboard/streamlit_app.py
+make dashboard
 ```
 
 ## Testing and Code Quality
 
-Run unit tests:
+Run unit tests and all static checks:
 
 ```bash
-pytest tests/unit -q
+make check
 ```
 
-Run integration tests:
+Integration tests may require Docker and PostgreSQL:
 
 ```bash
-pytest tests/integration -q
+make test-integration
 ```
 
-Run linting, formatting checks, and static analysis:
-
-```bash
-ruff check .
-black --check .
-mypy app
-```
+GitHub Actions runs the unit tests, Ruff, Black, and MyPy checks on Python 3.12.
 
 ## Current Limitations
 
 - Real order placement is not supported by design.
 - Public-market history should be collected through the public backfill endpoint or ingestion pipelines.
-- The dashboard references commands such as `make seed-demo` and `make backfill-public`, but a `Makefile` is not currently included.
-- Recommended next improvements: add a Makefile, CI/CD pipeline, Alembic migrations, dashboard screenshots, and `CONTRIBUTING.md`.
-
+- Database schema changes are not yet managed through Alembic migrations.
+- The repository does not include a hosted demo; the API and dashboard run locally.
